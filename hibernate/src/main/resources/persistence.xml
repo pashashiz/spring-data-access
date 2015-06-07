@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Used just to support IDEA JPA highlights, should be empty -->
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
-    <persistence-unit name="NewPersistenceUnit"></persistence-unit>
+    <persistence-unit name="persistenceUnit">
+    </persistence-unit>
 </persistence>

@@ -4,6 +4,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Arrays;
+import java.util.Set;
 
 @Entity @Table(indexes = {
         @Index(name = "idx_fk_address_id", columnList = "address_id"),
@@ -15,12 +16,14 @@ public class Staff {
     private String firstName;
     private String lastName;
     private Address address;
+    private String username;
+    private String password;
     private byte[] picture;
     private String email;
     private Store store;
+    private Set<Rental> rentals;
     private boolean isActive;
-    private String username;
-    private String password;
+
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "staff_id")
     public int getId() {
@@ -31,7 +34,7 @@ public class Staff {
         this.id = id;
     }
 
-    @Column(nullable = false, length = 45)
+    @Column(name = "first_name", nullable = false, length = 45)
     public String getFirstName() {
         return firstName;
     }
@@ -40,13 +43,31 @@ public class Staff {
         this.firstName = firstName;
     }
 
-    @Column(nullable = false, length = 45)
+    @Column(name = "last_name", nullable = false, length = 45)
     public String getLastName() {
         return lastName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Column(nullable = false, length = 16)
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Column(nullable = false, length = 40)
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @ManyToOne @JoinColumn(name = "address_id", foreignKey = @ForeignKey(name = "fk_staff_address"))
@@ -85,6 +106,15 @@ public class Staff {
         this.store = store;
     }
 
+    @OneToMany(mappedBy = "staff")
+    public Set<Rental> getRentals() {
+        return rentals;
+    }
+
+    public void setRentals(Set<Rental> rentals) {
+        this.rentals = rentals;
+    }
+
     @Column @Type(type = "numeric_boolean")
     public boolean isActive() {
         return isActive;
@@ -92,24 +122,6 @@ public class Staff {
 
     public void setActive(boolean isActive) {
         this.isActive = isActive;
-    }
-
-    @Column(nullable = false, length = 16)
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    @Column(nullable = false, length = 40)
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     @Override
@@ -122,6 +134,7 @@ public class Staff {
                 ", picture=[DIGITAL]" +
                 ", email='" + email + '\'' +
                 ", store=" + ((store != null) ? store.getId() : "") +
+                ", rentals(n)=" + ((rentals != null) ? rentals.size() : "0") +
                 ", isActive=" + isActive +
                 ", username='" + username + '\'' +
                 ", password=[HIDDEN]" +

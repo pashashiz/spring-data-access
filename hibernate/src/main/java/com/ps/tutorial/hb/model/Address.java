@@ -1,24 +1,29 @@
 package com.ps.tutorial.hb.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity @Table(indexes = {@Index(name = "idx_fk_city_id", columnList = "city_id")})
 public class Address {
 
-    private short id;
+    private int id;
     private String fullNameFirst;
     private String fullNameSecond;
     private String distinct;
     private City city;
     private String postalCode;
     private String phone;
+    // Just for cascade removing
+    private Set<Store> stores;
+    private Set<Staff> staffs;
+    private Set<Customer> customers;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "address_id")
     public int getId() {
         return id;
     }
 
-    public void setId(short id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -31,7 +36,7 @@ public class Address {
         this.fullNameFirst = fullNameFirst;
     }
 
-    @Column(name = "address1", length = 50)
+    @Column(name = "address2", length = 50)
     public String getFullNameSecond() {
         return fullNameSecond;
     }
@@ -40,7 +45,7 @@ public class Address {
         this.fullNameSecond = fullNameSecond;
     }
 
-    @Column(name = "distinct", nullable = false, length = 20)
+    @Column(name = "district", nullable = false, length = 20)
     public String getDistinct() {
         return distinct;
     }
@@ -74,6 +79,33 @@ public class Address {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @OneToMany(mappedBy = "address", cascade = CascadeType.REMOVE)
+    public Set<Store> getStores() {
+        return stores;
+    }
+
+    public void setStores(Set<Store> stores) {
+        this.stores = stores;
+    }
+
+    @OneToMany(mappedBy = "address", cascade = CascadeType.REMOVE)
+    public Set<Staff> getStaffs() {
+        return staffs;
+    }
+
+    public void setStaffs(Set<Staff> staffs) {
+        this.staffs = staffs;
+    }
+
+    @OneToMany(mappedBy = "address", cascade = CascadeType.REMOVE)
+    public Set<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(Set<Customer> customers) {
+        this.customers = customers;
     }
 
     @Override
