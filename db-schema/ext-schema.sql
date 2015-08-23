@@ -134,7 +134,9 @@ CREATE FUNCTION get_film_actors(id INT) RETURNS TEXT
   END$$
 DELIMITER ;
 # Some comment 0
+# Hey
 # Test
 SELECT title, description, get_film_actors(film_id) as film_actors, release_year FROM film;
 
 # Some comment 1
+# Some comment 2
