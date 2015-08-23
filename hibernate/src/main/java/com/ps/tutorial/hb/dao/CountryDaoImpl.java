@@ -1,6 +1,7 @@
 package com.ps.tutorial.hb.dao;
 
 import com.ps.tutorial.hb.model.Country;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

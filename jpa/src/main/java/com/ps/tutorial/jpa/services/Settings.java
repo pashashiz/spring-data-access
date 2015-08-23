@@ -16,6 +16,11 @@ public class Settings {
         return dao.getEntry(name);
     }
 
+    @Transactional(readOnly = true)
+    public SettingsEntry getEntryWithCriteria(String name) {
+        return dao.getEntryWithCriteria(name);
+    }
+
     @Transactional
     public void createEntry(SettingsEntry entry) {
         dao.createEntry(entry);

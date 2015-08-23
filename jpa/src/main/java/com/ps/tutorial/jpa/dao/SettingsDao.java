@@ -6,6 +6,8 @@ public interface SettingsDao {
 
     public SettingsEntry getEntry(String name);
 
+    public SettingsEntry getEntryWithCriteria(String name);
+
     public void createEntry(SettingsEntry entry);
 
     public void updateEntry(SettingsEntry entry);

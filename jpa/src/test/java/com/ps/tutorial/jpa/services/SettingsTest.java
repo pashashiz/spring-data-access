@@ -23,6 +23,7 @@ public class SettingsTest {
         SettingsEntry entry = new SettingsEntry("key", "value");
         settings.createEntry(entry);
         assertEquals(settings.getEntry("key"), entry);
+        assertEquals(settings.getEntryWithCriteria("key"), entry);
         entry.setValue("updated-value");
         settings.updateEntry(entry);
         assertEquals(settings.getEntry("key"), entry);
